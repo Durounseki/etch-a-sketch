@@ -28,11 +28,22 @@ body{
     border: 1px solid black;
     width: 800px;
     height: 800px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    border-collapse: collapse;
 }
 
-.cell{
+.canvas-row{
     flex: 1;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    /* width: 100%; */
+}
+
+.canvas-cell{
+    flex: 1;
+    margin: 0;
+    border: 0;
     border: 1px solid black;
     box-sizing: border-box;
 }

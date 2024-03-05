@@ -2,9 +2,16 @@ function generateCanvas(){
     canvas.style.display='flex';
     canvas.innerHTML = '';   //clear the canvas
     for(let i=0; i < numberOfCells; i++){
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        canvas.appendChild(cell);
+
+        const canvasRow = document.createElement('div');
+        canvasRow.classList.add('canvas-row');
+        canvas.appendChild(canvasRow);
+        for(let i=0; i < numberOfCells; i++){
+            const cell = document.createElement('div');
+            cell.classList.add('canvas-cell');
+            canvasRow.appendChild(cell);
+        }
+    
     } 
     // height.addEventListener('input', () => canvas.style.height = `${height.value*cellSize}px`);
 }
@@ -27,15 +34,15 @@ function showInstructions(){
     alert(message);
 }
 
-const instructions=document.querySelector('#instructions');
+const instructions=document.querySelector('#instructions-btn');
 instructions.addEventListener('click',showInstructions);
 
 const startBtn=document.querySelector('#start');
 startBtn.addEventListener('click',generateCanvas);
 
 const size=document.querySelector('#size');
-let numberOfCells = 100;  //Default size 10 X 10 cells
-size.addEventListener('input', () => {numberOfCells=parseInt(size.value)**2;});
+let numberOfCells = 10;  //Default size 10 X 10 cells
+size.addEventListener('input', () => {numberOfCells=parseInt(size.value);});
 // const height=document.querySelector('#height');
 const brightness=document.querySelector('#brightness');
 // size.addEventListener('input', () => canvas.style.width = `${width.value*cellSize}px`);
