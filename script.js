@@ -10,6 +10,8 @@ function generateCanvas(){
             const cell = document.createElement('div');
             cell.classList.add('canvas-cell');
             canvasRow.appendChild(cell);
+            //Add property to track how many times we have hovered over the cell
+            cell.hoverCount = '0';
             cell.addEventListener('mouseenter',changeBackground);
         }
     
@@ -19,11 +21,18 @@ function generateCanvas(){
 }
 
 function changeBackground(event){
+    cell = event.target;
+    console.log(cell.hoverCount);
+    //Additive brightness
+    if(cell.hoverCount < Math.ceil(1 / brightnessInput.value)){
+        cell.hoverCount++;
+    }
     //Ensure brightness is between 0 and 1
-    brightness = Math.max(0, Math.min(brightnessInput.value,1));
-    let colorChannel = Math.round((1-brightness) * 255);
+    brightness = 1-Math.max(0, Math.min(brightnessInput.value * cell.hoverCount,1));
+    let colorChannel = Math.round(brightness * 255);
+    console.log(colorChannel);
     let greyColor = `rgb(${colorChannel},${colorChannel},${colorChannel})`
-    event.target.style.backgroundColor = greyColor;
+    cell.style.backgroundColor = greyColor;
 }
 
 function setWidth(){
