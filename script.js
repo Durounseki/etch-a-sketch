@@ -3,39 +3,54 @@ function generateCanvas(){
     canvas.innerHTML = '';   //clear the canvas
     for(let i=0; i < numberOfCells; i++){
 
+        //add rows of cells
         const canvasRow = document.createElement('div');
         canvasRow.classList.add('canvas-row');
         canvas.appendChild(canvasRow);
+        //add cells in each row
         for(let i=0; i < numberOfCells; i++){
             const cell = document.createElement('div');
             cell.classList.add('canvas-cell');
             canvasRow.appendChild(cell);
-            //Add property to track how many times we have hovered over the cell
-            // cell.hoverCount = 0;
+            //Add color property (default white)
             cell.color = 255;
+            //change color on hover
             cell.addEventListener('mouseenter',changeBackground);
         }
     
     }
     startBtn.textContent = 'CLEAR';
-    // height.addEventListener('input', () => canvas.style.height = `${height.value*cellSize}px`);
 }
 
 function changeBackground(event){
     cell = event.target;
-    // console.log(cell.hoverCount);
-    //Additive brightness
-    // if(cell.hoverCount < Math.ceil(1 / brightnessInput.value)){
-    //     cell.hoverCount++;
-    // }
-    //Ensure brightness is between 0 and 1
-    // brightness = 1-Math.max(0, Math.min(brightnessInput.value,1));
-
-    let colorPass = Math.round(brightness.value * 255);
+    //additive coloring
+    let colorPass = Math.round(brightness.value * brightness.eraseEnable * 255);
+    //clamp color channel value to [0,255]
     cell.color = Math.max(Math.min(cell.color-colorPass,255),0);
-    console.log(cell.color);
     let color = `rgb(${cell.color},${cell.color},${cell.color})`
     cell.style.backgroundColor = color;
+}
+
+function clampBrightness(){
+    let value = parseFloat(brightness.value);
+    value = Math.max(0,Math.min(value,1));
+    if (value !== parseFloat(brightness.value)){
+        brightness.value = value;
+    }
+}
+
+function switchToEraser(event){
+    if(event.key === 'e'){
+        brightness.eraseEnable = -1;
+    }
+    console.log(event.key);
+}
+
+function switchToPencil(event){
+    if(event.key === 'e'){
+        brightness.eraseEnable = 1;
+    }
 }
 
 function showInstructions(){
@@ -47,7 +62,9 @@ function showInstructions(){
         The brightness determines the number of strokes, n,
         required to fully color one cell, 1 = n * brightness.
     4.- Hover your mouse over a grid cell to change the color.
-    5.- Click the CLEAR button to generate a new canvas.
+    5.- You can hold the 'e' key to switch erase on hover.
+        Every time you hover over a cell you remove some color.
+    6.- Click the CLEAR button to generate a new canvas.
     `
     alert(message);
 }
@@ -60,10 +77,16 @@ startBtn.addEventListener('click',generateCanvas);
 
 const size=document.querySelector('#size');
 let numberOfCells = 10;  //Default size 10 X 10 cells
+//Change canvas size
 size.addEventListener('input', () => {numberOfCells=parseInt(size.value);});
-// const height=document.querySelector('#height');
+
 const brightness=document.querySelector('#brightness');
-// size.addEventListener('input', () => canvas.style.width = `${width.value*cellSize}px`);
+//Limit brightness parameter to [0,1]
+brightness.addEventListener('input', clampBrightness);
+//Switch to eraser on press key 'e'
+brightness.eraseEnable = 1;
+document.addEventListener('keypress', switchToEraser)
+document.addEventListener('keyup', switchToPencil)
 
 const canvasContainer = document.querySelector('#canvas-container');
 const canvas=document.querySelector('#canvas');
