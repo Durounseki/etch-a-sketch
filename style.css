@@ -1,0 +1,25 @@
+body{
+    text-align: center;
+}
+
+#instructions{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#controls, #parameters{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#controls{
+    margin-bottom: 10px;
+}
+
+#canvas{
+    display: none;
+}
+

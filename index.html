@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-a-Sketch</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Let's Draw Something!</h1>
+    
+    <div id="instructions"></div>
+        
+        <div id="controls">
+            <button id="start">START</button>
+            <button id="instructions">INSTRUCTIONS</button>
+        </div>
+        <div id="parameters">
+            <div>
+                <label for="width">Width:</label>
+                <input type="number" name="width" id="width" min="1" max="100">
+            </div>
+            <div>
+                <label for="height">Height:</label>
+                <input type="number" name="height" id="height" min="2" max="100">
+            </div>
+            <div>
+                <label for="brightness">Brightness:</label>
+                <input type="number" name="brightness" id="brightness" min="0.0" max="1.0">
+            </div>
+        </div>
+    </div>
+    <div id="canvas">
+
+    </div>
+</body>
+</html>
