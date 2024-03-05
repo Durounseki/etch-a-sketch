@@ -32,11 +32,12 @@ function changeBackground(event){
     cell.style.backgroundColor = color;
 }
 
-function clampBrightness(){
-    let value = parseFloat(brightness.value);
-    value = Math.max(0,Math.min(value,1));
-    if (value !== parseFloat(brightness.value)){
-        brightness.value = value;
+function clampValue(event){
+    let element = event.target;
+    let value = parseFloat(element.value);
+    value = Math.max(parseFloat(element.min),Math.min(value,parseFloat(element.max)));
+    if (value !== parseFloat(element.value)){
+        element.value = value;
     }
 }
 
@@ -51,6 +52,11 @@ function switchToPencil(event){
     if(event.key === 'e'){
         brightness.eraseEnable = 1;
     }
+}
+
+function sizeHandler(event){
+    clampValue(event);
+    numberOfCells=parseInt(size.value);
 }
 
 function showInstructions(){
@@ -78,11 +84,11 @@ startBtn.addEventListener('click',generateCanvas);
 const size=document.querySelector('#size');
 let numberOfCells = 10;  //Default size 10 X 10 cells
 //Change canvas size
-size.addEventListener('input', () => {numberOfCells=parseInt(size.value);});
+size.addEventListener('input', sizeHandler);
 
 const brightness=document.querySelector('#brightness');
 //Limit brightness parameter to [0,1]
-brightness.addEventListener('input', clampBrightness);
+brightness.addEventListener('input', clampValue);
 //Switch to eraser on press key 'e'
 brightness.eraseEnable = 1;
 document.addEventListener('keypress', switchToEraser)
