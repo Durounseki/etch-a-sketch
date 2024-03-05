@@ -18,8 +18,22 @@ body{
 #controls{
     margin-bottom: 10px;
 }
-
+#canvas-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 #canvas{
     display: none;
+    border: 1px solid black;
+    width: 800px;
+    height: 800px;
+    flex-wrap: wrap;
+}
+
+.cell{
+    flex: 1;
+    border: 1px solid black;
+    box-sizing: border-box;
 }
 
