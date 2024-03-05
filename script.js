@@ -47,4 +47,6 @@ size.addEventListener('input', () => {numberOfCells=parseInt(size.value);});
 const brightness=document.querySelector('#brightness');
 // size.addEventListener('input', () => canvas.style.width = `${width.value*cellSize}px`);
 
+const canvasContainer = document.querySelector('#canvas-container');
 const canvas=document.querySelector('#canvas');
+canvas.style.width = `${Math.min(parseInt())}`
