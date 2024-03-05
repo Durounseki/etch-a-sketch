@@ -11,7 +11,8 @@ function generateCanvas(){
             cell.classList.add('canvas-cell');
             canvasRow.appendChild(cell);
             //Add property to track how many times we have hovered over the cell
-            cell.hoverCount = '0';
+            // cell.hoverCount = 0;
+            cell.color = 255;
             cell.addEventListener('mouseenter',changeBackground);
         }
     
@@ -22,21 +23,19 @@ function generateCanvas(){
 
 function changeBackground(event){
     cell = event.target;
-    console.log(cell.hoverCount);
+    // console.log(cell.hoverCount);
     //Additive brightness
-    if(cell.hoverCount < Math.ceil(1 / brightnessInput.value)){
-        cell.hoverCount++;
-    }
+    // if(cell.hoverCount < Math.ceil(1 / brightnessInput.value)){
+    //     cell.hoverCount++;
+    // }
     //Ensure brightness is between 0 and 1
-    brightness = 1-Math.max(0, Math.min(brightnessInput.value * cell.hoverCount,1));
-    let colorChannel = Math.round(brightness * 255);
-    console.log(colorChannel);
-    let greyColor = `rgb(${colorChannel},${colorChannel},${colorChannel})`
-    cell.style.backgroundColor = greyColor;
-}
+    // brightness = 1-Math.max(0, Math.min(brightnessInput.value,1));
 
-function setWidth(){
-
+    let colorPass = Math.round(brightness.value * 255);
+    cell.color = Math.max(Math.min(cell.color-colorPass,255),0);
+    console.log(cell.color);
+    let color = `rgb(${cell.color},${cell.color},${cell.color})`
+    cell.style.backgroundColor = color;
 }
 
 function showInstructions(){
@@ -63,7 +62,7 @@ const size=document.querySelector('#size');
 let numberOfCells = 10;  //Default size 10 X 10 cells
 size.addEventListener('input', () => {numberOfCells=parseInt(size.value);});
 // const height=document.querySelector('#height');
-const brightnessInput=document.querySelector('#brightness');
+const brightness=document.querySelector('#brightness');
 // size.addEventListener('input', () => canvas.style.width = `${width.value*cellSize}px`);
 
 const canvasContainer = document.querySelector('#canvas-container');
