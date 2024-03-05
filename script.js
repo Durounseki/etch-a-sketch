@@ -10,10 +10,20 @@ function generateCanvas(){
             const cell = document.createElement('div');
             cell.classList.add('canvas-cell');
             canvasRow.appendChild(cell);
+            cell.addEventListener('mouseenter',changeBackground);
         }
     
-    } 
+    }
+    startBtn.textContent = 'CLEAR';
     // height.addEventListener('input', () => canvas.style.height = `${height.value*cellSize}px`);
+}
+
+function changeBackground(event){
+    //Ensure brightness is between 0 and 1
+    brightness = Math.max(0, Math.min(brightnessInput.value,1));
+    let colorChannel = Math.round((1-brightness) * 255);
+    let greyColor = `rgb(${colorChannel},${colorChannel},${colorChannel})`
+    event.target.style.backgroundColor = greyColor;
 }
 
 function setWidth(){
@@ -44,9 +54,8 @@ const size=document.querySelector('#size');
 let numberOfCells = 10;  //Default size 10 X 10 cells
 size.addEventListener('input', () => {numberOfCells=parseInt(size.value);});
 // const height=document.querySelector('#height');
-const brightness=document.querySelector('#brightness');
+const brightnessInput=document.querySelector('#brightness');
 // size.addEventListener('input', () => canvas.style.width = `${width.value*cellSize}px`);
 
 const canvasContainer = document.querySelector('#canvas-container');
 const canvas=document.querySelector('#canvas');
-canvas.style.width = `${Math.min(parseInt())}`
